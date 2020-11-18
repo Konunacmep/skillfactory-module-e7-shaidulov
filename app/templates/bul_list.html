@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Все объявления
+{% endblock %}
+
+{% block header %}
+    Все объявления
+{% endblock %}
+
+{% block content %}
+    <ul class="list-group">
+        {% for bul in buls %}
+            <li class="list-group-item">
+                От: {{ bul.author }} {{ bul.creation_time }}<br>
+                <b>{{ bul.title }}</b><br>
+                {{ bul.content }}<br>
+                <a href="{{ url_for('detail_view', rec_number=bul['_id']) }}">Подробнее</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
+
+{% block nav %}
+    <a href="{{ url_for('new') }}">Новое объявление</a>
+{% endblock %}

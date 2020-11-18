@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Подробнее от объявлении
+{% endblock %}
+
+{% block header %}
+    {{ bul.title }}
+{% endblock %}
+
+{% block content %}
+    <p>От: {{ bul.author }} {{ bul.creation_time }}</p>
+    <h3>{{ bul.content }}</h3>
+    {% if bul.tags %}
+        <p>Тэги:
+            {% for tag in bul.tags %}
+                {% if loop.index != bul.tags|length %}
+                    {{ tag }},
+                {% else %}
+                    {{ tag }}
+                {% endif %}
+            {% endfor %}
+        </p>
+        <p>Всего тэгов: {{ bul.tags|length }}</p>
+    {% endif %}
+    <form action="" method="post" novalidate>
+        {{ tgform.hidden_tag() }}
+        <p>
+            {{ tgform.tags.label }}<br>
+            {{ tgform.tags(class_="form-control") }}
+            {% for error in tgform.tags.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>{{ tgform.submit() }}</p>
+    </form>
+<p><b>Комментарии</b></p>
+    {% if bul.comments %}
+    <ul class="list-group">{% for comment in bul.comments %}
+            <li class="list-group-item">
+                Автор: {{ comment.author }}<br>
+                {{ comment.content }}
+            </li>
+        {% endfor %}
+    </ul>
+    <p>Всего комментариев: {{ bul.comments|length }}</p>
+    {% endif %}
+    <form action="" method="post" novalidate>
+        {{ cmform.hidden_tag() }}
+        <p><b>Добавить коммент</b></p>
+        <p>
+            {{ cmform.author.label }}<br>
+            {{ cmform.author(class_="form-control") }}
+            {% for error in cmform.author.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ cmform.content.label }}<br>
+            {{ cmform.content(class_="form-control", rows="3") }}
+            {% for error in cmform.content.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>{{ cmform.submit() }}</p>
+    </form>
+{% endblock %}
+
+{% block nav %}
+    <a href="{{ url_for('index') }}">К списку</a>
+{% endblock %}

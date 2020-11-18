@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}
+    New bulletin
+{% endblock %}
+
+{% block header %}
+    Новое объявление
+{% endblock %}
+
+{% block content %}
+    <form action="" method="post" novalidate>
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.author.label }}<br>
+            {{ form.author(class_="form-control") }}
+            {% for error in form.author.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.title.label }}<br>
+            {{ form.title(class_="form-control") }}
+            {% for error in form.title.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.content.label }}<br>
+            {{ form.content(class_="form-control") }}
+            {% for error in form.content.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.tags.label }}<br>
+            {{ form.tags(class_="form-control") }}
+            {% for error in form.tags.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>{{ form.submit() }}</p>
+    </form>
+{% endblock %}
+
+{% block nav %}
+    <a href="{{ url_for('index') }}">К списку</a>
+{% endblock %}
